@@ -1,12 +1,10 @@
 package com.ifeomai.apps.journalapp;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -15,7 +13,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -170,6 +167,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
             findViewById(R.id.button_sign_in).setVisibility(View.INVISIBLE);
             findViewById(R.id.button_sign_out).setVisibility(View.VISIBLE);
+
+            //Open sample List without MVP
+            Intent intent = new Intent(this, MainActivity.class)
+                    .putExtra(Intent.EXTRA_TEXT,user.getUid());
+            startActivity(intent);
         } else {
             mTextViewStatus.setText(R.string.signed_out);
             mTextViewDetail.setText(null);

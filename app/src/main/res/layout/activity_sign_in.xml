@@ -1,29 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_sign_in"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignInActivity"
-    android:id="@+id/layout_sign_in"
-    android:orientation="vertical">
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/text_view_status"
-    android:text=""/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_view_detail"
-        android:text=""/>
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/button_sign_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <Button
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:text="@string/title_sign_out"
-        android:id="@+id/button_sign_out"/>
+    android:fitsSystemWindows="true"
+    android:padding="20dp"
+    android:background="@color/colorPrimary">
 
-</LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        tools:context=".SignInActivity">
+
+        <ImageView android:src="@drawable/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:layout_marginBottom="24dp"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/text_view_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/text_view_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/text_view_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_welcome"
+            android:textSize="18dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorPrimaryText"/>
+
+        <TextView
+            android:id="@+id/text_view_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_welcome_subtitle"
+            android:textSize="16dp"
+            android:textColor="@color/colorPrimaryText"/>
+
+        <com.google.android.gms.common.SignInButton
+            android:layout_marginTop="20dp"
+            android:id="@+id/button_sign_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/button_continue"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_continue" />
+
+        <Button
+            android:id="@+id/button_sign_out"
+            android:layout_marginTop="10dp"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:text="@string/title_sign_out" />
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
