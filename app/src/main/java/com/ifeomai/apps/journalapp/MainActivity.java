@@ -5,14 +5,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
-import com.ifeomai.apps.journalapp.Utils.LoginUtils;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     private String mUserName;
 
@@ -21,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //get an instance to our tv
+     /*   //get an instance to our tv
         TextView mTextViewUserName = findViewById(R.id.text_view_user_name);
 
         //Use getIntent to retrieve passed values
@@ -29,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         mUserName = intentOrigin.getStringExtra(Intent.EXTRA_TEXT);
         if (intentOrigin.hasExtra(Intent.EXTRA_TEXT)){
             mTextViewUserName.setText(mUserName);
-        }
+        }*/
 
 
 
@@ -42,11 +37,14 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Add new Detail
+                startActivity(new Intent(MainActivity.this, NewJEntryActivity.class));
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
     }
+/*
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,4 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+*/
+
 }

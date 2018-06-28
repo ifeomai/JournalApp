@@ -3,9 +3,16 @@ package com.ifeomai.apps.journalapp.Utils;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.ifeomai.apps.journalapp.R;
 
 public class LoginUtils {
+
+    public static String getUid() {
+
+        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    }
     /*private static FirebaseAuth mAuth;
     private static GoogleSignInClient mGoogleSignInClient;
 

@@ -169,7 +169,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             findViewById(R.id.button_sign_out).setVisibility(View.VISIBLE);
 
             //Open sample List without MVP
-            Intent intent = new Intent(this, MainActivity.class)
+            Intent intent = new Intent(this, LandingActivity.class)
                     .putExtra(Intent.EXTRA_TEXT,user.getUid());
             startActivity(intent);
         } else {
