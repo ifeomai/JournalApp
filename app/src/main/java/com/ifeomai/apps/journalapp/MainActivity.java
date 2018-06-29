@@ -7,21 +7,29 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
 import com.ifeomai.apps.journalapp.Utils.LoginUtils;
-import com.ifeomai.apps.journalapp.database.JEntryGreenAdapter;
+import com.ifeomai.apps.journalapp.database.JEntry;
+import com.ifeomai.apps.journalapp.database.JEntryDao;
+import com.ifeomai.apps.journalapp.viewholder.JEntryViewHolder;
 
-public class MainActivity extends AppCompatActivity implements JEntryGreenAdapter.ListItemClickListener  {
-
+//public class MainActivity extends AppCompatActivity implements JEntryGreenAdapter.ListItemClickListener  {
+public class MainActivity extends AppCompatActivity{
     private String mUserName;
     private Toast mToast;
+    private static final String TAG = MainActivity.class.getSimpleName();
 
-    private static final int NUM_LIST_ITEMS = 100;
-    private JEntryGreenAdapter mAdapter;
+    private FirebaseRecyclerAdapter mAdapter;
     private RecyclerView mRecycleList;
 
     @Override
@@ -34,10 +42,59 @@ public class MainActivity extends AppCompatActivity implements JEntryGreenAdapte
         mRecycleList.setLayoutManager(layoutManager);
         mRecycleList.setHasFixedSize(true);
 
-        mAdapter = new JEntryGreenAdapter(NUM_LIST_ITEMS,this);
+
+        //Here I want to use Fb RecyclerAdapter
+        //Query query = JEntryDao.mDbRef.limitToLast(50);
+        DatabaseReference databaseReference = JEntryDao.mDbRef;
+        FirebaseRecyclerOptions<JEntry> options =
+                new FirebaseRecyclerOptions.Builder<JEntry>()
+                        .setQuery(databaseReference, JEntry.class)
+                        .build();
+        mAdapter = new FirebaseRecyclerAdapter<JEntry, JEntryViewHolder>(options) {
+            @Override
+            public JEntryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                // Create a new instance of the ViewHolder, in this case we are using a custom
+                // layout called R.layout.message for each item
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_jentry, parent, false);
+
+                return new JEntryViewHolder(view);
+            }
+
+            @Override
+            protected void onBindViewHolder(JEntryViewHolder holder, int position, JEntry model) {
+                // Bind the Chat object to the ChatHolder
+                // ...
+                final DatabaseReference itemRef = getRef(position);
+                // Set click listener for the whole JEntry view
+                final String itemKey = itemRef.getKey();
+
+                holder.bindJEntry(model);
+                holder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        // Launch JEntryDetailActivity
+                        /*Intent intent = new Intent(getApplicationContext(), JEntryDetailActivity.class);
+                        intent.putExtra(JEntryDetailActivity.EXTRA_POST_KEY, itemKey);
+                        startActivity(intent);*/
+
+
+                        if (mToast != null) {
+                            mToast.cancel();
+                        }
+                        String toastMessage = "List Item was clicked #: "+itemKey ;
+                       mToast= Toast.makeText(getApplicationContext(),toastMessage , Toast.LENGTH_SHORT);
+                       mToast.show();
+                    }
+                });
+            }
+        };
 
         // Set the Adapter you created on mRecycleList
         mRecycleList.setAdapter(mAdapter);
+        Log.d(TAG, "Total Items#" + mAdapter.getItemCount());
+
      /*   //get an instance to our tv
         TextView mTextViewUserName = findViewById(R.id.text_view_user_name);
 
@@ -67,7 +124,18 @@ public class MainActivity extends AppCompatActivity implements JEntryGreenAdapte
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAdapter.startListening();
+    }
 
+    @Override
+
+    public void onStop() {
+        super.onStop();
+        mAdapter.stopListening();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -98,6 +166,8 @@ public class MainActivity extends AppCompatActivity implements JEntryGreenAdapte
     }
 /**/
 
+/*// TODO: Note When I implement the or JEntryGreenAdapter FbRecyle Adapter in a new class, I'll have to override
+// and uncomment this again
     @Override
     public void onListItemClick(int clickedItemIndex) {
         if (mToast != null) {
@@ -107,5 +177,5 @@ public class MainActivity extends AppCompatActivity implements JEntryGreenAdapte
         mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
 
         mToast.show();
-    }
+    }*/
 }
