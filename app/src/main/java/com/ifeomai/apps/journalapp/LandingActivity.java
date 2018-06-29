@@ -15,9 +15,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.ifeomai.apps.journalapp.Utils.LoginUtils;
 import com.ifeomai.apps.journalapp.database.JEntry;
 import com.ifeomai.apps.journalapp.database.JEntryAdapter;
-import com.ifeomai.apps.journalapp.database.JEntryDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +39,8 @@ public class LandingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_landing);
 
         //TODO: 002 Instantiate Firebase variables
-        mFirebaseDatabase = JEntryDao.mFirebaseDatabase;
-        mDbRef = JEntryDao.mDbRef;
+        mFirebaseDatabase = FirebaseDatabase.getInstance();//JEntryDao.mFirebaseDatabase;
+        mDbRef = mFirebaseDatabase.getReference("entries").child(LoginUtils.getUid());//JEntryDao.mDbRef;
 
         mJEntryListView = findViewById(R.id.listView_jEntry);
 

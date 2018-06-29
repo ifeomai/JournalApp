@@ -5,17 +5,37 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+
+import com.ifeomai.apps.journalapp.Utils.LoginUtils;
+import com.ifeomai.apps.journalapp.database.JEntryGreenAdapter;
 
 public class MainActivity extends AppCompatActivity  {
 
     private String mUserName;
+
+    private static final int NUM_LIST_ITEMS = 100;
+    private JEntryGreenAdapter mAdapter;
+    private RecyclerView mRecycleList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mRecycleList = findViewById(R.id.rv_jentry_list);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecycleList.setLayoutManager(layoutManager);
+        mRecycleList.setHasFixedSize(true);
+
+        mAdapter = new JEntryGreenAdapter(NUM_LIST_ITEMS);
+
+        // Set the Adapter you created on mRecycleList
+        mRecycleList.setAdapter(mAdapter);
      /*   //get an instance to our tv
         TextView mTextViewUserName = findViewById(R.id.text_view_user_name);
 
@@ -44,7 +64,7 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
     }
-/*
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,7 +83,7 @@ public class MainActivity extends AppCompatActivity  {
         switch (item.getItemId()) {
             case R.id.action_settings:
                 //Open sample List without MVP
-                Intent intent = new Intent(this, ListEntriesActivity.class)
+                Intent intent = new Intent(MainActivity.this, LandingActivity.class)
                         .putExtra(Intent.EXTRA_TEXT,mUserName);
                 startActivity(intent);
                 return true;
@@ -74,6 +94,6 @@ public class MainActivity extends AppCompatActivity  {
                 return super.onOptionsItemSelected(item);
         }
     }
-*/
+/**/
 
 }

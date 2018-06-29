@@ -16,7 +16,7 @@ public class JEntry {
     public JEntry(){
         //default Constructor
     }
-    public JEntry(String description,String title, String updatedAt) {
+    public JEntry(String title,String description, String updatedAt) {
         //this.owner = owner;
         this.title = title;
         this.description = description;
