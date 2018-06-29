@@ -13,14 +13,27 @@ import com.ifeomai.apps.journalapp.R;
 
 //Adapters are tied to RecyclerViews and basically Override these 3 methods
 public class JEntryGreenAdapter extends RecyclerView.Adapter<JEntryGreenAdapter.JEntryViewHolder> {
-
+    /*
+     * An on-click handler that we've defined to make it easy for an Activity to interface with
+     * our RecyclerView
+     */
+    private final ListItemClickListener mOnClickListener;
     private static final String TAG = JEntryGreenAdapter.class.getSimpleName();
     // # of items this adapter will hold
     private int mNumberItems;
 
 
-    public JEntryGreenAdapter(int numberOfItems){
+
+    /**
+     * The interface that receives onClick messages.
+     */
+    public interface ListItemClickListener {
+        void onListItemClick(int clickedItemIndex);
+    }
+
+    public JEntryGreenAdapter(int numberOfItems, ListItemClickListener listener){
         mNumberItems = numberOfItems;
+        mOnClickListener= listener;
     }
 
     //Here it creates the viewholder using a layout(static/dynamic) and inflates them
@@ -59,14 +72,16 @@ public class JEntryGreenAdapter extends RecyclerView.Adapter<JEntryGreenAdapter.
     //Cache of the children Views for a list item
     // This looks like a duplication of my viewHolder.JEntryViewHolder
     //*******************************************
-    class JEntryViewHolder extends RecyclerView.ViewHolder{
+    class JEntryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView titleView;
         private TextView updatedAtView;
         private TextView descriptionView;
 
+
         public JEntryViewHolder(View itemView){
             super(itemView);
             titleView = itemView.findViewById(R.id.post_title);
+            itemView.setOnClickListener(this);
         }
         void bind(int listIndex)
         {
@@ -76,6 +91,11 @@ public class JEntryGreenAdapter extends RecyclerView.Adapter<JEntryGreenAdapter.
             titleView.setText(String.valueOf(listIndex));
         }
 
+        @Override
+        public void onClick(View v) {
+            int clickedPosition = getAdapterPosition();
+            mOnClickListener.onListItemClick(clickedPosition);
+        }
     }
 
 

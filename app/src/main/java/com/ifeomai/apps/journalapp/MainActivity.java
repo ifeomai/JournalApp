@@ -10,13 +10,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.ifeomai.apps.journalapp.Utils.LoginUtils;
 import com.ifeomai.apps.journalapp.database.JEntryGreenAdapter;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements JEntryGreenAdapter.ListItemClickListener  {
 
     private String mUserName;
+    private Toast mToast;
 
     private static final int NUM_LIST_ITEMS = 100;
     private JEntryGreenAdapter mAdapter;
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity  {
         mRecycleList.setLayoutManager(layoutManager);
         mRecycleList.setHasFixedSize(true);
 
-        mAdapter = new JEntryGreenAdapter(NUM_LIST_ITEMS);
+        mAdapter = new JEntryGreenAdapter(NUM_LIST_ITEMS,this);
 
         // Set the Adapter you created on mRecycleList
         mRecycleList.setAdapter(mAdapter);
@@ -96,4 +98,14 @@ public class MainActivity extends AppCompatActivity  {
     }
 /**/
 
+    @Override
+    public void onListItemClick(int clickedItemIndex) {
+        if (mToast != null) {
+            mToast.cancel();
+        }
+        String toastMessage = "Item #" + clickedItemIndex + " clicked.";
+        mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
+
+        mToast.show();
+    }
 }
