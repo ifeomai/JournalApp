@@ -4,11 +4,12 @@ package com.ifeomai.apps.journalapp.database;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 @IgnoreExtraProperties
-public class JEntry {
+public class JEntry implements Serializable {
     public String title;
     public String description;
     public String updatedAt;

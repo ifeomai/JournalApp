@@ -1,5 +1,6 @@
 package com.ifeomai.apps.journalapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -15,14 +16,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ifeomai.apps.journalapp.Utils.LoginUtils;
+import com.ifeomai.apps.journalapp.database.DateConverter;
 import com.ifeomai.apps.journalapp.database.JEntry;
 
+import java.util.Date;
 import java.util.Map;
+
+import static com.ifeomai.apps.journalapp.JEntryDetailActivity.EXTRA_POST_KEY;
 
 public class NewJEntryActivity extends AppCompatActivity {
 
     private static final String TAG = "NewJEntryActivity";
     private static final String REQUIRED = "Required";
+
+    private String mJEntryKey;
 
     // [START declare_database_ref]
     private DatabaseReference mDatabase;
@@ -39,7 +46,9 @@ public class NewJEntryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_jentry);
 
         // [START initialize_database_ref]
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        // Calling Dao here was not returning or updating my data
+        //Is sth wrong with the definition?
+        mDatabase =  FirebaseDatabase.getInstance().getReference()   ;//JEntryDao.mDbRef();
         // [END initialize_database_ref]
 
         mTitleField = findViewById(R.id.field_title);
@@ -53,6 +62,15 @@ public class NewJEntryActivity extends AppCompatActivity {
                 submitPost();
             }
         });
+
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("item") && intent.hasExtra(EXTRA_POST_KEY)) {
+           JEntry jEntry = (JEntry) intent.getSerializableExtra("item");
+           mJEntryKey = intent.getStringExtra(EXTRA_POST_KEY);
+           BindControls(jEntry);
+        }
+
+
     }
 
     private void submitPost() {
@@ -74,7 +92,7 @@ public class NewJEntryActivity extends AppCompatActivity {
 
         // Disable button so there are no multi-posts
         setEditingEnabled(false);
-        Toast.makeText(this, "Posting...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Saving...", Toast.LENGTH_SHORT).show();
 
         // [START single_value_read]
         final String userId = LoginUtils.getUid();
@@ -87,13 +105,16 @@ public class NewJEntryActivity extends AppCompatActivity {
                         //Do we ned o check if user is authenticated in our Firebase DB first?
 
                             // Write new post
-                            writeNewPost(title, description, updatedAt);
+                        writeNewPost(title, description, String.valueOf(DateConverter.toTimestamp(new Date())));
 
 
                         // Finish this Activity, back to the stream
                         setEditingEnabled(true);
                         finish();
                         // [END_EXCLUDE]
+
+                        //Back to MainActivity
+                       // startActivity(new Intent(NewJEntryActivity.this, MainActivity.class));
                     }
 
                     @Override
@@ -103,12 +124,14 @@ public class NewJEntryActivity extends AppCompatActivity {
                         setEditingEnabled(true);
                         // [END_EXCLUDE]
                     }
+
                 });
         // [END single_value_read]
     }
 
     private void setEditingEnabled(boolean enabled) {
         mTitleField.setEnabled(enabled);
+        mUpdatedAt.setEnabled(enabled);
         mDescriptionField.setEnabled(enabled);
         if (enabled) {
             mSubmitButton.setVisibility(View.VISIBLE);
@@ -117,19 +140,26 @@ public class NewJEntryActivity extends AppCompatActivity {
         }
     }
 
+    private void BindControls(JEntry jEntry){
+             mTitleField.setText(jEntry.title);
+             mDescriptionField.setText(jEntry.description);
+             mUpdatedAt.setText(jEntry.updatedAt);
+
+
+    }
     // [START write_fan_out]
     private void writeNewPost(String title, String description, String updatedAt ) {
         // Create new post at /entries/$userid/$postid
        // String key = mDatabase.child("entries").child(LoginUtils.getUid()).push().getKey();
         JEntry post = new JEntry(title, description, updatedAt);
         Map<String, Object> postValues = post.toMap();
-        mDatabase.child("entries").child(LoginUtils.getUid()).push().setValue(postValues);
-/*
+        if (mJEntryKey == null) {
+            //This is a new entry
+            mDatabase.child("entries").child(LoginUtils.getUid()).push().setValue(postValues);
+        }else{
+            mDatabase.child("entries").child(LoginUtils.getUid()).child(mJEntryKey).setValue(postValues);
+        }
 
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/entries/" + LoginUtils.getUid() + "/" + key, postValues);
-
-        mDatabase.updateChildren(childUpdates);*/
     }
     // [END write_fan_out]
 }

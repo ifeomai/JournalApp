@@ -5,10 +5,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.ifeomai.apps.journalapp.Utils.LoginUtils;
 
 public class JEntryDao {
-    public static FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
+    private static FirebaseDatabase instance;
 
-    //This reference defines the database / JSON node that I exactly  want
-    public static DatabaseReference mDbRef = mFirebaseDatabase.getReference("entries").child(LoginUtils.getUid());
+    public static FirebaseDatabase mFirebaseDatabase() {
+        if (instance == null) {
+            instance = FirebaseDatabase.getInstance();
+            instance.setPersistenceEnabled(true);
+        }
+        return instance;
+    }
+
+    //This defines the database / JSON node that I exactly  want
+    public static DatabaseReference mDbRef(){
+        DatabaseReference dbRef = mFirebaseDatabase().getReference("entries").child(LoginUtils.getUid());
+        dbRef.keepSynced(true);
+        return dbRef;
+    }
 
 
 

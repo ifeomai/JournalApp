@@ -8,7 +8,7 @@ import com.ifeomai.apps.journalapp.R;
 
 public class LoginUtils {
 
-    public static String getUid() {
+      public static String getUid() {
 
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
 

@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity{
 
         //Here I want to use Fb RecyclerAdapter
         //Query query = JEntryDao.mDbRef.limitToLast(50);
-        DatabaseReference databaseReference = JEntryDao.mDbRef;
+        DatabaseReference databaseReference = JEntryDao.mDbRef();
         FirebaseRecyclerOptions<JEntry> options =
                 new FirebaseRecyclerOptions.Builder<JEntry>()
                         .setQuery(databaseReference, JEntry.class)
@@ -73,19 +73,20 @@ public class MainActivity extends AppCompatActivity{
                 holder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Log.d(TAG, "Load Detail for - " + itemKey);
 
-                        // Launch JEntryDetailActivity
-                        /*Intent intent = new Intent(getApplicationContext(), JEntryDetailActivity.class);
+                       // Launch JEntryDetailActivity
+                        Intent intent = new Intent(getApplicationContext(), JEntryDetailActivity.class);
                         intent.putExtra(JEntryDetailActivity.EXTRA_POST_KEY, itemKey);
-                        startActivity(intent);*/
+                        startActivity(intent);
 
 
-                        if (mToast != null) {
+                      /*   if (mToast != null) {
                             mToast.cancel();
                         }
-                        String toastMessage = "List Item was clicked #: "+itemKey ;
+                        String toastMessage = "List Item was clicked #: "+ DateConverter.toDate(DateConverter.toTimestamp(new Date()));
                        mToast= Toast.makeText(getApplicationContext(),toastMessage , Toast.LENGTH_SHORT);
-                       mToast.show();
+                       mToast.show();*/
                     }
                 });
             }
@@ -93,7 +94,6 @@ public class MainActivity extends AppCompatActivity{
 
         // Set the Adapter you created on mRecycleList
         mRecycleList.setAdapter(mAdapter);
-        Log.d(TAG, "Total Items#" + mAdapter.getItemCount());
 
      /*   //get an instance to our tv
         TextView mTextViewUserName = findViewById(R.id.text_view_user_name);
