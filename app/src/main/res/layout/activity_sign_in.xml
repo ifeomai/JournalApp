@@ -18,13 +18,8 @@
         <ImageView android:src="@drawable/logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
             android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:id="@+id/text_view_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
 
         <TextView
             android:id="@+id/text_view_detail"
@@ -37,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_welcome"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:gravity="center_horizontal"
             android:textColor="@color/colorPrimaryText"/>
 
@@ -46,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_welcome_subtitle"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textColor="@color/colorPrimaryText"/>
 
         <com.google.android.gms.common.SignInButton
@@ -54,13 +49,6 @@
             android:id="@+id/button_sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/button_continue"
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_continue" />
 
         <Button
             android:id="@+id/button_sign_out"

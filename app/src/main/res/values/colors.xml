@@ -6,7 +6,6 @@
     -->
 
     <color name="colorPrimary">#ad1457</color>
-    <color name="colorPrimaryLight">#e35183</color>
     <color name="colorAccent">#44d9e6</color>
     <color name="colorPrimaryDark">#78002e</color>
     <color name="colorPrimaryText">#ffffff</color>

@@ -18,6 +18,8 @@ public class JEntryDao {
     //This defines the database / JSON node that I exactly  want
     public static DatabaseReference mDbRef(){
         DatabaseReference dbRef = mFirebaseDatabase().getReference("entries").child(LoginUtils.getUid());
+        //This orderby is not working...
+        // /dbRef.orderByChild("updatedAt");
         dbRef.keepSynced(true);
         return dbRef;
     }

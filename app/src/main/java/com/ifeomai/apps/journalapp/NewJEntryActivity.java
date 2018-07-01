@@ -93,7 +93,7 @@ public class NewJEntryActivity extends AppCompatActivity {
 
         // Disable button so there are no multi-posts
         setEditingEnabled(false);
-        Toast.makeText(this, "Note Saved...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Entry Saved...", Toast.LENGTH_SHORT).show();
 
         // [START single_value_read]
         final String userId = LoginUtils.getUid();

@@ -24,15 +24,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".JEntryDetailActivity" android:label="View Entry"/>
-        //This helps in making the floating button visible above the keyboard
         <activity android:name=".NewJEntryActivity"
             android:label="Quick Entry"
             android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"></meta-data>
+                android:value=".MainActivity"/>
         </activity>
-        <activity android:name=".LandingActivity"/>
     </application>
 
 </manifest>

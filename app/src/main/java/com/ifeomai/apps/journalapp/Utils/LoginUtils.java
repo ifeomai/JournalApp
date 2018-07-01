@@ -1,10 +1,6 @@
 package com.ifeomai.apps.journalapp.Utils;
 
-import android.support.design.widget.Snackbar;
-import android.view.View;
-
 import com.google.firebase.auth.FirebaseAuth;
-import com.ifeomai.apps.journalapp.R;
 
 public class LoginUtils {
 
@@ -60,10 +56,7 @@ public class LoginUtils {
 
  }*/
 
-    public static void signOut(View view) {
-        Snackbar.make(view, R.string.signed_out,
-                Snackbar.LENGTH_SHORT)
-                .show();
-
+    public static void signOut() {
+        FirebaseAuth.getInstance().signOut();
     }
 }

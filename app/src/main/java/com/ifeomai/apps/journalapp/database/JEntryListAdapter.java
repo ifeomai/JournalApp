@@ -21,7 +21,7 @@ public class JEntryListAdapter extends RecyclerView.Adapter<JEntryListAdapter.JE
     private static final String TAG = JEntryListAdapter.class.getSimpleName();
 
 
-    private ArrayList<JEntry> mJEntries = new ArrayList<>();
+    private ArrayList<JEntry> mJEntries;
     //I don't think I need this context. But just in case
     //private Context mContext;
     //public JEntryListAdapter(Context context, ArrayList<JEntry> jEntries,JEntryListAdapter.ListItemClickListener listener){
@@ -104,7 +104,7 @@ public class JEntryListAdapter extends RecyclerView.Adapter<JEntryListAdapter.JE
             //In JEGreen adapter the Intent that redirects to the ViewDetail Activity is defined in the
             // MainActivity class
             //In this instance I can do all from here in the Adapter. Is that better?
-             This is how the position was passed in the JEntryGreenAdapter
+             This is how the position was passed in my JEntry Green Adapter
             int clickedPosition = getAdapterPosition();
             mOnClickListener.onListItemClick(clickedPosition);*/
 

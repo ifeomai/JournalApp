@@ -32,7 +32,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     // [END declare_auth]
 
     private GoogleSignInClient mGoogleSignInClient;
-    private TextView mTextViewStatus;
     private TextView mTextViewDetail;
 
     @Override
@@ -41,7 +40,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_in);
 
         //Find the views
-        mTextViewStatus = findViewById(R.id.text_view_status);
         mTextViewDetail = findViewById(R.id.text_view_detail);
 
         // Button listeners
@@ -162,7 +160,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private void updateUI(FirebaseUser user) {
         //hideProgressDialog();
         if (user != null) {
-            mTextViewStatus.setText(getString(R.string.google_status_fmt, user.getEmail()));
             mTextViewDetail.setText(getString(R.string.firebase_status_fmt, user.getUid()));
 
             findViewById(R.id.button_sign_in).setVisibility(View.INVISIBLE);
@@ -173,7 +170,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     .putExtra(Intent.EXTRA_TEXT,user.getUid());
             startActivity(intent);
         } else {
-            mTextViewStatus.setText(R.string.signed_out);
             mTextViewDetail.setText(null);
 
             findViewById(R.id.button_sign_in).setVisibility(View.VISIBLE);

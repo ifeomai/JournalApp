@@ -15,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -25,10 +24,7 @@ import com.ifeomai.apps.journalapp.database.JEntry;
 import com.ifeomai.apps.journalapp.database.JEntryDao;
 import com.ifeomai.apps.journalapp.viewholder.JEntryViewHolder;
 
-//public class MainActivity extends AppCompatActivity implements JEntryGreenAdapter.ListItemClickListener  {
 public class MainActivity extends AppCompatActivity{
-    private String mUserName;
-    private Toast mToast;
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private FirebaseRecyclerAdapter mAdapter;
@@ -157,24 +153,11 @@ public class MainActivity extends AppCompatActivity{
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_log_out:
-                LoginUtils.signOut(findViewById(R.id.myCoordinatorLayout));
-                return true;
+                LoginUtils.signOut();
+                startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                //return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-/**/
-
-/*// TODO: Note When I implement the or JEntryGreenAdapter FbRecyle Adapter in a new class, I'll have to override
-// and uncomment this again
-    @Override
-    public void onListItemClick(int clickedItemIndex) {
-        if (mToast != null) {
-            mToast.cancel();
-        }
-        String toastMessage = "Item #" + clickedItemIndex + " clicked.";
-        mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
-
-        mToast.show();
-    }*/
 }
