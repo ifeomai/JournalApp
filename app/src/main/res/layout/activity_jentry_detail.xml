@@ -9,11 +9,10 @@
     <include
         android:id="@+id/post_text_layout"
         layout="@layout/include_jentry_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp" />
+        android:layout_margin="10dp" />
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_edit_post"
         android:layout_width="wrap_content"
