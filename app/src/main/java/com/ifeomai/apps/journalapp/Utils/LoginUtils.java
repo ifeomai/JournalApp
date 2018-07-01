@@ -9,8 +9,9 @@ public class LoginUtils {
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     }
-    /*private static FirebaseAuth mAuth;
-    private static GoogleSignInClient mGoogleSignInClient;
+    /*private static GoogleSignInClient mGoogleSignInClient;
+    private static FirebaseAuth mAuth;
+
 
     public LoginUtils(Activity activity) {
         // Configure sign-in to request the user's ID, email address, and basic
@@ -57,6 +58,22 @@ public class LoginUtils {
  }*/
 
     public static void signOut() {
+
         FirebaseAuth.getInstance().signOut();
+       /* GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                //.requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(activity, gso);
+        // Google sign out
+        mGoogleSignInClient.signOut().addOnCompleteListener(this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        updateUI(null);
+                    }
+                });*/
+
     }
 }

@@ -181,7 +181,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         int i = v.getId();
         if (i == R.id.button_sign_in) {
             signIn();
-        } else if (i == R.id.button_sign_out) {
+        } else if (i == R.id.button_sign_out ) {
+            signOut();
+        }else if (i == R.id.action_log_out) {
             signOut();
         }
     }
