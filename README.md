@@ -12,10 +12,11 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 You need Android Studio
 A Firebase Realtime Database
+A Google Account
 
 ### Installing
 
-Download the apk from **[JournalApp Apk](https://github.com/googlesamples/android-testing/blob/master/ui/espresso/IntentsBasicSample)**
+Download the apk from **[JournalApp Apk](https://github.com/ifeomai/JournalApp/blob/master/app/release/app-release.apk)**
 
 Install and sign in with your Google account
 
