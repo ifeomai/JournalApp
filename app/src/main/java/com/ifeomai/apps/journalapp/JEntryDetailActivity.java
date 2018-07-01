@@ -2,6 +2,7 @@ package com.ifeomai.apps.journalapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.ifeomai.apps.journalapp.database.DateConverter;
 import com.ifeomai.apps.journalapp.database.JEntry;
 import com.ifeomai.apps.journalapp.database.JEntryDao;
 
@@ -79,13 +81,16 @@ public class JEntryDetailActivity extends AppCompatActivity implements View.OnCl
         // [START post_value_event_listener]
         ValueEventListener postListener = new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 post = dataSnapshot.getValue(JEntry.class);
                 // [START_EXCLUDE]
-                mTextViewTitle.setText(post.title);
-                mTextViewDescription.setText(post.description);
-                mTextViewUpdatedAt.setText(post.updatedAt);
+                String sTitle = post.title;
+                mTextViewTitle.setText(sTitle);
+                String sDescription = post.description;
+                mTextViewDescription.setText(sDescription);
+                String stringDate = DateConverter.toString(post.updatedAt);
+                mTextViewUpdatedAt.setText(stringDate);
                 // [END_EXCLUDE]
             }
 

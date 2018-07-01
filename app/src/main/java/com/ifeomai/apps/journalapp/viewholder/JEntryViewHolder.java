@@ -6,12 +6,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ifeomai.apps.journalapp.R;
+import com.ifeomai.apps.journalapp.database.DateConverter;
 import com.ifeomai.apps.journalapp.database.JEntry;
 
 public class JEntryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     public View mView;
-    Context mContext;
+    private Context mContext;
 
 
 
@@ -29,7 +30,7 @@ public class JEntryViewHolder extends RecyclerView.ViewHolder implements View.On
 
         titleView.setText(item.title);
         descriptionView.setText(item.description);
-        updatedAtView.setText(item.updatedAt);
+        updatedAtView.setText(DateConverter.toCustomFormat(item.updatedAt));
 
     }
     @Override

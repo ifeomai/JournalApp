@@ -2,9 +2,11 @@ package com.ifeomai.apps.journalapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -41,10 +43,13 @@ public class MainActivity extends AppCompatActivity{
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecycleList.setLayoutManager(layoutManager);
         mRecycleList.setHasFixedSize(true);
+        DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(mRecycleList.getContext(),
+                layoutManager.getOrientation());
+        mRecycleList.addItemDecoration(mDividerItemDecoration);
 
 
         //Here I want to use Fb RecyclerAdapter
-        //Query query = JEntryDao.mDbRef.limitToLast(50);
+        //Query query = JEntryDao.mDbRef.limitToLast(30);
         DatabaseReference databaseReference = JEntryDao.mDbRef();
         FirebaseRecyclerOptions<JEntry> options =
                 new FirebaseRecyclerOptions.Builder<JEntry>()
@@ -52,7 +57,7 @@ public class MainActivity extends AppCompatActivity{
                         .build();
         mAdapter = new FirebaseRecyclerAdapter<JEntry, JEntryViewHolder>(options) {
             @Override
-            public JEntryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            public JEntryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 // Create a new instance of the ViewHolder, in this case we are using a custom
                 // layout called R.layout.message for each item
                 View view = LayoutInflater.from(parent.getContext())
@@ -62,7 +67,7 @@ public class MainActivity extends AppCompatActivity{
             }
 
             @Override
-            protected void onBindViewHolder(JEntryViewHolder holder, int position, JEntry model) {
+            protected void onBindViewHolder(@NonNull JEntryViewHolder holder, int position, @NonNull JEntry model) {
                 // Bind the Chat object to the ChatHolder
                 // ...
                 final DatabaseReference itemRef = getRef(position);

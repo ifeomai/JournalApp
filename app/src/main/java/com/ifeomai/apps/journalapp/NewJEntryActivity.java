@@ -2,6 +2,7 @@ package com.ifeomai.apps.journalapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -92,14 +93,14 @@ public class NewJEntryActivity extends AppCompatActivity {
 
         // Disable button so there are no multi-posts
         setEditingEnabled(false);
-        Toast.makeText(this, "Saving...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Note Saved...", Toast.LENGTH_SHORT).show();
 
         // [START single_value_read]
         final String userId = LoginUtils.getUid();
         mDatabase.child("entries").child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         // Add a try catch here in case user is not authenticated or writnig to the wrong node
                         //It should also catch and Firebase errors
                         //Do we ned o check if user is authenticated in our Firebase DB first?
@@ -110,15 +111,15 @@ public class NewJEntryActivity extends AppCompatActivity {
 
                         // Finish this Activity, back to the stream
                         setEditingEnabled(true);
-                        finish();
+                        //finish();
                         // [END_EXCLUDE]
 
                         //Back to MainActivity
-                       // startActivity(new Intent(NewJEntryActivity.this, MainActivity.class));
+                        startActivity(new Intent(NewJEntryActivity.this, MainActivity.class));
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
                         Log.w(TAG, "getUser:onCancelled", databaseError.toException());
                         // [START_EXCLUDE]
                         setEditingEnabled(true);
