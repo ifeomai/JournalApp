@@ -156,12 +156,6 @@ public class MainActivity extends AppCompatActivity{
 
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                //Open sample List without MVP
-                Intent intent = new Intent(MainActivity.this, LandingActivity.class)
-                        .putExtra(Intent.EXTRA_TEXT,mUserName);
-                startActivity(intent);
-                return true;
             case R.id.action_log_out:
                 LoginUtils.signOut(findViewById(R.id.myCoordinatorLayout));
                 return true;
