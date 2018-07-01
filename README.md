@@ -16,20 +16,19 @@ A Google Account
 
 ### Installing
 
-Download the apk from **[JournalApp Apk](https://github.com/ifeomai/JournalApp/blob/master/app/release/app-release.apk)**
+Download the apk from **[JournalApp](https://github.com/ifeomai/JournalApp/blob/master/app/release/app-release.apk)**
 
 Install and sign in with your Google account
 
 ## Screenshots
 
-
+<img src="screenshots/full.png" height="400" alt="Screenshot"/> 
 
 
 ## Authors
 
-* **Ifeoma Igweze** - *Initial work* - [PurpleBooth](https://github.com/ifeomai)
+* **Ifeoma Igweze** - *Initial work* - [Multiskills](https://github.com/ifeomai)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
